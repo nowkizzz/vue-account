@@ -1,0 +1,29 @@
+// 全局样式*
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body,
+html {
+    height: 100%;
+    font-family: "Hiragino Sans GB", "Helvetica Neue", "Arial", "Microsoft Yahei", sans-serif;
+    font-size: 14px;
+    opacity: 1;
+}
+
+a:link {
+    text-decoration: none;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+}
+
+[v-cloak] {
+    display: none;
+}
+#app {
+    height: 100%;
+}
