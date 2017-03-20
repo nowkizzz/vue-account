@@ -1,12 +1,12 @@
 <template>
 	<div class="footer">
-		<router-link to="/" exact >
+		<router-link to="/main" exact >
 			<div class="item" @click="firstCli"><img :src="firstIcon"><span>记账</span></div>
 		</router-link>
-		<router-link to="/home">
+		<router-link to="/main/home">
 		<div class="item" @click="secCli"><img :src="secIcon"><span>账单</span></div>
 		</router-link>
-		<router-link to="/aboutMe">
+		<router-link to="/main/aboutMe">
 
 		<div class="item" @click="thirdCli"><img :src="thirdIcon"><span>我的</span></div>
 		</router-link>
@@ -22,7 +22,7 @@ import imgThird from '../assets/Tab_Icon_Mine_def@2x.png'
 import imgThirdActive from '../assets/Tab_Icon_Mine_pre@2x.png'
 
 	export default {
-		name: "router",
+		name: "foo",
 		data () {
 			return {
 				firstIcon: imgFirstActive,
