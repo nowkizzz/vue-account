@@ -3,29 +3,53 @@
 		<h2>记账本登录</h2>
 		<div class="group">
 			<label for="account">账号</label>
-			<input type="text" class="accountInput"  id="account" v-model="account">
+			<input type="text" class="accountInput"  id="account" :value="userName" 
+			@input="inUserName">
 		</div>
 		<div class="group">
 			<label for="password">密码</label>
-			<input type="text" class="passwordInput" id="password" v-model="password">
+			<input type="password" class="passwordInput" id="password" :value="password" 
+			@input="inPassword">
 		</div>
 		<button class="loginBtn" @click="loginConirm">登录</button>
+		<button class="loginBtn" @click="register">注册</button>
 	</div>
 </template>
 
 <script>
 	export default {
 		name: "login",
-		data () {
-			return {
-				account: "",
-				password: ""
+		computed: {
+			userName () {
+				return this.$store.state.user.userName
+			},
+			password () {
+				return this.$store.state.user.password
 			}
 		},
 		methods: {
+			inPassword () {
+				this.$store.commit('inPassword' , event.target.value);
+			},
+			inUserName () {
+				this.$store.commit('inUserName' , event.target.value);
+			},
 			loginConirm () {
-				this.$router.push({ path: 'main' });　
-
+				const vm = this;
+				this.$http.post('/api/login/login',{
+					userName:this.userName,
+					password:this.password
+				}).then( (res) => {
+					let data = res.body;
+					if(data.code === 0){
+						vm.$router.push({ path: 'main', query: {id:data.msg} });　
+					} else {
+						alert(data.msg)
+					}
+				})
+		},
+		register () {
+			this.$router.push({ path: 'register'})
 		}
 	}
 }

@@ -3,7 +3,7 @@
 		<router-link to="/main" exact >
 			<div class="item" @click="firstCli"><img :src="firstIcon"><span>记账</span></div>
 		</router-link>
-		<router-link to="/main/home">
+		<router-link to="/main/detail">
 		<div class="item" @click="secCli"><img :src="secIcon"><span>账单</span></div>
 		</router-link>
 		<router-link to="/main/aboutMe">

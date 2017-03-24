@@ -4,20 +4,24 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,height=device-height, user-scalable=no,initial-scale=1, minimum-scale=1, maximum-scale=1,target-densitydpi=device-dpi ">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="telephone=no" name="format-detection">
+    <meta content="email=no" name="format-detection">
     <title>记账本</title>
 </head>
 
 <body>
     <div id="app">
-       <router-view></router-view>
+        <router-view></router-view>
     </div>
     <!-- built files will be auto injected -->
     <script>
-        let html = document.documentElement;
-        console.log(html.getBoundingClientRect().width)
-        window.rem = html.getBoundingClientRect().width / 10;
-        html.style.fontSize = window.rem + 'px';
-        console.log(window.rem)
+    let html = document.documentElement;
+    console.log(html.getBoundingClientRect().width)
+    window.rem = html.getBoundingClientRect().width / 10;
+    html.style.fontSize = window.rem + 'px';
+    console.log(window.rem)
 
     window.onresize = function() {
         let html = document.documentElement;

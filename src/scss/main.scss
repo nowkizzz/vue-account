@@ -1,8 +1,5 @@
 // 全局样式*
-* {
-    margin: 0;
-    padding: 0;
-}
+
 
 body,
 html {
@@ -10,6 +7,9 @@ html {
     font-family: "Hiragino Sans GB", "Helvetica Neue", "Arial", "Microsoft Yahei", sans-serif;
     font-size: 14px;
     opacity: 1;
+        margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color:rgba(255,255,255,0);
 }
 
 a:link {
@@ -27,3 +27,4 @@ ul {
 #app {
     height: 100%;
 }
+

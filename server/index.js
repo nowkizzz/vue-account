@@ -7,7 +7,7 @@ const api = require('./api')
 // 引入处理路径的模块
 const path = require('path') 
 // 引入处理post数据的模块
-const bodyParse = require('body-parse')
+const bodyParse = require('body-parser')
 
 
 const app = express();
