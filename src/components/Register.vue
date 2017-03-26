@@ -2,14 +2,13 @@
 	<div class="login">
 		<h2>记账本注册</h2>
 		<div class="group">
-			<label for="account">账号</label>
-			<input type="text" class="accountInput"  id="account" v-model="userName">
+			<input type="text" class="accountInput"  id="account" v-model="userName" placeholder="账号">
 		</div>
 		<div class="group">
-			<label for="password">密码</label>
-			<input type="password" class="passwordInput" id="password" v-model="password">
+			<input type="password" class="passwordInput" id="password" v-model="password"
+			placeholder="密码">
 		</div>
-		<button class="loginBtn" @click="conirm">确认</button>
+		<a class="loginBtn" @click="conirm">确认</a>
 	</div>
 </template>
 
@@ -41,20 +40,42 @@
 		h2 {
 			text-align: center;
 			margin-bottom: 1rem;
+			font-weight: normal;
 		}
 		.group {
 			margin: 0.5rem;
-			font-size: 0.8rem;
+			font-size: 0.6rem;
+				display: flex;
+
 			input {
 				border: 1px solid #ccc;
 				border-radius: 2px;
 				padding: 0.1rem;
+				padding-left: 0.2rem;
+				border-radius: 10px;
+				width: 100%;
 			}
 		}
 		.loginBtn {
-			margin: 1.2rem 4rem;
-			width: 2rem;
-			height: 1rem;
+		    position: relative;
+		    display: block;
+		    margin-left: auto;
+		    margin-right: auto;
+		    padding-left: 14px;
+		    padding-right: 14px;
+		    box-sizing: border-box;
+		    font-size: 18px;
+		    text-align: center;
+		    text-decoration: none;
+		    color: #FFFFFF;
+		    line-height: 2.55555556;
+		    border-radius: 5px;
+		    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+		    overflow: hidden;
+		    background-color: #2Ab2A4;
+		    border: none;
+		    width: 80%;
+		    margin-top: 1rem;
 		}
 	}
 

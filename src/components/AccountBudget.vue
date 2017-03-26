@@ -1,15 +1,15 @@
 <template>
     <div class="container">
         <p class="budgetTitle">{{month}}月预算总额</p>
-        <p class="budgetMoney">3000</p>
+        <p class="budgetMoney">{{accountCount.budgetCount.toFixed(2)}}</p>
         <div class="incomePay">
             <div class="incomePayMonth">
                 <p>{{month}}月收入</p>
-                <strong>2000</strong>
+                <strong>{{accountCount.incomeMonthSum.toFixed(2)}}</strong>
             </div>
             <div class="incomePayMonth">
                 <p>{{month}}月支出</p>
-                <strong>2000</strong>
+                <strong>{{accountCount.payMonthSum.toFixed(2)}}</strong>
             </div>
         </div>
         <a class="saveBtn" @click="recordOne">记一笔</a>
@@ -20,6 +20,7 @@ export default {
     data() {
             return {
                 month: new Date().getMonth() + 1,
+                accountCount: {}
             }
         },
         methods: {
@@ -29,6 +30,16 @@ export default {
                 })
 
             }
+        },
+        created () {
+        	let vm = this;
+        	this.$http.get('/api/account/accountCurrentMonth/'+ this.$store.state.personId).then(
+        		(res) => {
+        			let data = res.body;
+        			if(data.code === 0) {
+        				vm.accountCount = data.msg;
+        			}
+        		})
         }
 }
 </script>

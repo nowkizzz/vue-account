@@ -18,7 +18,9 @@
 
 <style scoped>
 	.router {
-		height: 100%;
+		height:  calc(100% - 51px);
+		overflow: auto;
+		/*height: 100%;*/
 		background-color: #F8F8F8;
 		
 	}

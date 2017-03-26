@@ -9,15 +9,40 @@ const state = {
 		userName: "",
 		password: "",
 	},
-
+	typeIcon: "icon-xingxing",
+	typeName: "一般",
+	pay: 0,
+	income: 0,
+	isIncome: false,
+	inputMoney: 0 ,
+	userId: 0,
+	personId: ""
 }
 
 const  mutations = {
+	// 输入账号
 	inUserName (state,n) {
 		state.user.userName = n;
 	},
+	// 输入密码
 	inPassword (state,n) {
 		state.user.password = n;
+	},
+	// 存储ID
+	saveUserId (state,n) {
+		state.userId = n;
+	},
+	savePersonId (state,n) {
+		state.personId = n;
+	},
+	// 判断账单支出还是收入
+	isIncomePay (state) {
+		state.isIncome = ! state.isIncome;
+	},
+	// 选中被选择的类型
+	typeSelected (state,obj) {
+		state.typeName = obj.name;
+		state.typeIcon = obj.icon;
 	}
 }
 

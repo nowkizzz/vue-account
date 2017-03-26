@@ -12,7 +12,8 @@ db.once('open', () => console.log('Mongo connection successed') )
 const loginSchema = new mongoose.Schema({
 	userName: String,
 	password: String,
-	userId: Number
+	userId: Number,
+	budgetCount: {type: Number , default: 3000} 
 });
 loginSchema.statics = {
 	getNextUserId (cb) {
@@ -21,14 +22,16 @@ loginSchema.statics = {
 }
 // 定义账单模式
 const accountSchema = new mongoose.Schema({
-	// isPay: Number,                            // 是否支出
+	// isPay: Number,                         // 是否支出
 	income: { type:Number,default: 0 },       // 收入
 	pay: { type:Number,default: 0 },          // 支出
 	createTime:  { type:Date , default: Date.now},
 	typeIcon: String,
 	typeName: String,
 	orderId: Number,
-	userId: Number
+	// userId: Number,
+	typeId: Number,
+	personId:  mongoose.Schema.Types.ObjectId
 })
 accountSchema.statics = {
 	getNextOrderId (cb) {
