@@ -3,6 +3,7 @@
 import Vue from 'vue'
 import router from './router'
 import login from './components/Login'
+import loading from './components/loading'
 import './scss/normalize.scss'
 import './scss/main.scss'
 import vueResource from 'vue-resource'
@@ -31,11 +32,22 @@ Vue.use(vueResource);
 
 Vue.config.productionTip = false
 /* eslint-disable no-new */
-new Vue({
+const app = new Vue({
   el: '#app',
   router,
   store,
+  data:{
+    showloading: false
+  },
   // template: '<App/>',
   // render: h => h(login), // render function
-  components: { login }
+  components: { login,loading }
 })
+
+Vue.http.interceptors.push((request, next) => {
+    app.showloading = true
+    next((response) => {
+        app.showloading = false;
+        return response
+    });
+});

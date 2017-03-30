@@ -90,6 +90,7 @@ router.post('/api/account/addAccount/:personId', (req, res) => {
             pay: req.body.pay,
             income: req.body.income,
             typeIcon: req.body.typeIcon,
+            typeColor: req.body.typeColor,
             createTime: req.body.createTime,
             personId: req.params.personId
         }).save((err, data) => {
@@ -143,25 +144,79 @@ router.get('/api/account/account/:personId', (req, res) => {
     })
 
 });
-// 月支出收入分布
-router.get('/api/account/accountMonth/:personId', (req, res) => {
-    let currentMonth = new Date().getMonth();
-    console.log(currentMonth)
+// 月支出收入分布 用于图表
+router.get('/api/account/accountMonth/:personId/:month/:year', (req, res) => {
+    // console.log(req.params.month)
+    // console.log(req.params.year)
+    let selectMonth = parseInt(req.params.month);
+    let selectYear = parseInt(req.params.year);
     let personId = mongoose.Types.ObjectId(req.params.personId);
-    BillModel.find({
-            personId: personId,
-            $where: 'return this.createTime.getMonth() == ' + currentMonth
-        })
-        .select('typeName pay income')
-        .exec((err, data) => {
+    // BillModel.find({
+    //         personId: personId,
+    //         $where: 'return this.createTime.getMonth() == ' + currentMonth ,
+    //         $where: 'return this.createTime.getFullYear() == ' + currentYear,
+    //      })
+    //     .select('typeName pay income')
+    //     .exec((err, data) => {
 
-            res.send(data);
-        })
+    //         res.send(data);
+    //     })
+    BillModel.aggregate([{
+            $match: {
+                personId: personId,
+            }
+        }, {
+            $project: {
+                month: { $month: "$createTime" },
+                year: { $year: "$createTime" },
+                pay: 1,
+                income: 1,
+                typeName: 1,
+                typeColor: 1
+            }
+        }, {
+            $match: {
+                month: selectMonth,
+                year: selectYear
+            }
+        }, {
+            $group: {
+                _id: '$typeName',
+                payMonthSum: { $sum: "$pay" },
+                incomeMonthSum: { $sum: "$income" },
+                typeColor: { $push: "$typeColor" }
+
+            }
+        }, {
+            $project: {
+                _id: 1,
+                payMonthSum: 1,
+                incomeMonthSum: 1,
+                typeColor: 1
+            }
+        }, {
+            $sort: { 
+                     incomeMonthSum: -1 ,
+                     payMonthSum: -1, 
+
+                 }
+        }
+
+
+    ], (err, result) => {
+        if (err) {
+            res.send(err);
+            return;
+        }
+        res.json({ code: 0, msg: result })
+
+    });
 })
 
-// 当月支出收入
+// 当月支出收入 
 router.get('/api/account/accountCurrentMonth/:personId', (req, res) => {
     let currentMonth = new Date().getMonth() + 1;
+    let currentYear = new Date().getFullYear();
     let personId = mongoose.Types.ObjectId(req.params.personId);
     BillModel.aggregate([{
             $match: {
@@ -170,13 +225,15 @@ router.get('/api/account/accountCurrentMonth/:personId', (req, res) => {
         }, {
             $project: {
                 month: { $month: "$createTime" },
+                year: { $year: "$createTime" },
                 pay: 1,
                 income: 1,
                 // typeName: 1
             }
         }, {
             $match: {
-                month: currentMonth
+                month: currentMonth,
+                year: currentYear
             }
         }, {
             $group: {
@@ -191,16 +248,20 @@ router.get('/api/account/accountCurrentMonth/:personId', (req, res) => {
             res.send(err);
             return;
         }
-        var  dataMonth =  result[0];
+        var dataMonth = result[0];
         // 获取预算
-        PersonModel.findOne({_id: personId}).select('budgetCount').exec( (err,data) => {
-        	if(err) { res.send(err);return;}
-        	dataMonth.budgetCount = data.budgetCount - dataMonth.payMonthSum;
-        	res.json({ code: 0, msg: dataMonth })
+        PersonModel.findOne({ _id: personId }).select('budgetCount').exec((err, data) => {
+            if (err) {
+                res.send(err);
+                return;
+            }
+            dataMonth.budgetCount = data.budgetCount - dataMonth.payMonthSum;
+            res.json({ code: 0, msg: dataMonth })
         })
     });
 })
 
+// 设置每月预算
 router.post('/api/account/updateBudget/:personId', (req, res) => {
     let personId = mongoose.Types.ObjectId(req.params.personId);
 
@@ -212,6 +273,18 @@ router.post('/api/account/updateBudget/:personId', (req, res) => {
         res.json({ code: 0 })
     })
 
+});
+
+// 查看预算
+router.get('/api/account/getBudget/:personId', (req, res) => {
+
+    PersonModel.findOne({ _id: req.params.personId }).exec((err, result) => {
+        if (err) {
+            res.send(err);
+            return;
+        }
+        res.json({ code: 0, msg: result.budgetCount });
+    })
 })
 
 module.exports = router;

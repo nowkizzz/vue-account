@@ -24,7 +24,7 @@
 		methods: {
 			conirm () {
 				const vm = this;
-				this.$http.post('/api/login/createAccount',{userName:this.userName,password:this.password})
+				this.$http.post('/api/login/createAccount',{userName:this.userName,password:this.password,budgetCount: 3000})
 				       .then((response) => {
 				       	   vm.$router.push({path: '/'})
 				       })

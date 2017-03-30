@@ -1,15 +1,15 @@
 <template>
     <div class="container">
         <p class="budgetTitle">{{month}}月预算总额</p>
-        <p class="budgetMoney">{{accountCount.budgetCount.toFixed(2)}}</p>
+        <p class="budgetMoney">{{accountCount.budgetCount || '0.00'}}</p>
         <div class="incomePay">
             <div class="incomePayMonth">
                 <p>{{month}}月收入</p>
-                <strong>{{accountCount.incomeMonthSum.toFixed(2)}}</strong>
+                <strong>{{accountCount.incomeMonthSum || '0.00'}}</strong>
             </div>
             <div class="incomePayMonth">
                 <p>{{month}}月支出</p>
-                <strong>{{accountCount.payMonthSum.toFixed(2)}}</strong>
+                <strong>{{accountCount.payMonthSum || '0.00'}}</strong>
             </div>
         </div>
         <a class="saveBtn" @click="recordOne">记一笔</a>
@@ -26,7 +26,7 @@ export default {
         methods: {
             recordOne() {
                 this.$router.push({
-                    path: '/main/account'
+                    path: '/account'
                 })
 
             }
@@ -38,6 +38,9 @@ export default {
         			let data = res.body;
         			if(data.code === 0) {
         				vm.accountCount = data.msg;
+                        vm.accountCount.budgetCount = parseFloat(vm.accountCount.budgetCount).toFixed(2);
+                        vm.accountCount.incomeMonthSum = parseFloat(vm.accountCount.incomeMonthSum).toFixed(2);
+                        vm.accountCount.payMonthSum = parseFloat(vm.accountCount.payMonthSum).toFixed(2);
         			}
         		})
         }

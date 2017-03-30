@@ -28,60 +28,70 @@ export default {
                     name: "一般",
                     icon: "icon-xingxing",
                     isActive: true,
+                    color: '#058DC7',
                     type: "pay"
                 }, {
                     id: 2,
                     name: "餐饮",
                     icon: "icon-canju",
                     isActive: false,
+                    color: '#FFD700',
                     type: "pay"
                 }, {
                     id: 3,
                     name: "交通",
                     icon: "icon-qiche",
                     isActive: false,
+                    color: '#C6E2FF',
                     type: "pay"
                 }, {
                     id: 4,
                     name: "购物",
                     icon: "icon-gouwuche",
                     isActive: false,
+                    color: '#EECFA1',
                     type: "pay"
                 }, {
                     id: 5,
                     name: "手机",
                     icon: "icon-dianhua",
                     isActive: false,
+                    color: '#8DEEEE',
                     type: "pay"
                 }, {
                     id: 6,
                     name: "娱乐",
                     icon: "icon-youxishoubing",
                     isActive: false,
+                    color: '#cc3399',
                     type: "pay"
                 }, {
                     id: 7,
                     name: "学习",
                     icon: "icon-shuben",
                     isActive: false,
+                    color: '#FFE4B5',
                     type: "pay"
                 }, {
                     id: 8,
                     name: "腐败",
                     icon: "icon-gouwudai",
                     isActive: false,
+                    color: '#ff6666',
                     type: "pay"
                 }, {
                     id: 9,
                     name: "药品",
                     icon: "icon-yiyaoxiang",
                     isActive: false,
+                    color: '#66ff00',
                     type: "pay"
                 }, {
                     id: 10,
                     name: "其他",
                     icon: "icon-duoren",
                     isActive: false,
+                    color: '#7FFFD4',
                     type: "pay"
                 }, ],
                 incomeType: [{
@@ -89,42 +99,49 @@ export default {
                     name: "工资",
                     icon: "icon-gongzi",
                     isActive: false,
+                    color: '#ff3333',
                     type: "income"
                 }, {
                     id: 12,
                     name: "生活费",
                     icon: "icon-shenghuofei",
                     isActive: false,
+                    color: '#FFA500',
                     type: "income"
                 }, {
                     id: 13,
                     name: "红包",
                     icon: "icon-hongbao",
                     isActive: false,
+                    color: '#FF0000',
                     type: "income"
                 }, {
                     id: 14,
                     name: "兼职",
                     icon: "icon-jianzhi",
                     isActive: false,
+                    color: '#EEE685',
                     type: "income"
                 }, {
                     id: 15,
                     name: "投资",
                     icon: "icon-24",
                     isActive: false,
+                    color: '#C1FFC1 ',
                     type: "income"
                 }, {
                     id: 16,
                     name: "报销",
                     icon: "icon-baoxiao",
                     isActive: false,
+                    color: '#B8860B',
                     type: "income"
                 }, {
                     id: 17,
-                    name: "其他",
+                    name: "其它",
                     icon: "icon-qita",
                     isActive: false,
+                    color: '#9AC0CD',
                     type: "income"
                 }, ]
             }

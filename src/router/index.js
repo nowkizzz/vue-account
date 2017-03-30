@@ -30,10 +30,10 @@ export default new Router({
           path: '/main',
           component: AccountMonth
         },
-        {
-          path: '/main/account',
-          component: Account
-        },
+        // {
+        //   path: '/main/account',
+        //   component: Account
+        // },
         {
           path: '/main/detail',
           component: AccountDetail
@@ -45,6 +45,10 @@ export default new Router({
       ]
 
     },
+      {
+      path: '/account',
+      component: Account,
+      },
 
   ]
 })

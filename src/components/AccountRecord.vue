@@ -24,10 +24,12 @@ export default {
                 let obj = {
                     typeName: this.$store.state.typeName,
                     typeIcon: this.$store.state.typeIcon,
+                    typeColor: this.$store.state.typeColor,
                     pay: 0,
                     income: 0,
                     createTime: this.dateNow
                 }
+                console.log(obj)
                 if (this.money == 0) {
                     alert("请填写正确的金额");
                     return;

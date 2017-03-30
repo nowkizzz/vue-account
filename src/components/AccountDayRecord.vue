@@ -14,10 +14,12 @@
                     <span>{{item.typeName}}</span>
                 </p>
                 <p>
-                    <span>{{ item.pay.toFixed(2) || item.income.toFixed(2)}}</span>
+                    <span v-if="item.income == 0">{{ item.pay.toFixed(2)}}</span>
+                    <span v-else> {{item.income.toFixed(2)}}</span>
                 </p>
             </div>
         </div>
+        <p class="dataNull" v-if="dayRecord.length == 0">记账从此刻开始</p>
     </div>
 </template>
 <script>
@@ -31,9 +33,9 @@ export default {
 		handleInfo (info) {
 			let infoObj = {};
 			infoObj.createTime = new Date(info.createTime).Format('yyyy-MM-dd');
-			infoObj.incomeSum = info.incomeSum.toFixed(2);
-			infoObj.paySum = info.paySum.toFixed(2);
-			infoObj.type = info.type;
+			infoObj.incomeSum = parseFloat(info.incomeSum).toFixed(2);
+			infoObj.paySum = parseFloat(info.paySum).toFixed(2);
+			infoObj.type = info.type.reverse();
 			return infoObj;
 		},
 	},
@@ -44,7 +46,7 @@ export default {
                 let data = res.body;
                 if (data.code === 0) {
                     vm.dayRecord = data.msg.map(vm.handleInfo);
-                    console.log(vm.dayRecord) 
+                    // console.log(vm.dayRecord) 
                 }
             })
     }
@@ -52,21 +54,23 @@ export default {
 </script>
 <style scoped lang="scss">
 .accountDayRecord {
-	font-size: 0.3rem;
+	font-size: 0.35rem;
     font-family: '微软雅黑';
     padding-left: 0.3rem;
     background-color: #fff;
     border-bottom: 1px solid #F2F2F2;
     border-top: 1px solid #F2F2F2;
-    margin-bottom: 0.2rem;
+    margin-bottom: 0.3rem;
     .headerRecord {
-        padding: 0.1rem 0.3rem 0.1rem 0;
+        padding: 0.1rem;
         display: flex;
-        justify-content: space-around;
-        flex-wrap: nowrap;
+        // justify-content: space-around;
+        // flex-wrap: nowrap;
         p {
-            flex: 1;
+            // flex: 1;
+            text-align: left;
             &:last-child {
+                flex:1;
                 text-align: right;
                 span {
                     margin-left: 0.2rem;
@@ -84,7 +88,7 @@ export default {
             line-height: 0.4rem;
             height: 0.4rem;
             span:nth-child(2) {
-                font-size: 0.3rem;
+                font-size: 0.35rem;
             }
             &:last-child {
                 text-align: right;
@@ -95,5 +99,11 @@ export default {
             margin-right: 0.3rem;
         }
     }
+}
+.dataNull {
+    font-size: 0.7rem;
+    color: #ccc;
+    text-align: center;
+    margin-top: 1rem;
 }
 </style>

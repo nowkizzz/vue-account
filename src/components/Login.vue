@@ -33,16 +33,16 @@ export default {
         loginConirm() {
             const vm = this;
             this.$http.post('/api/login/login', {
-                userName: this.userName,
+                userName: this.userName, 
                 password: this.password
             }).then((res) => {
                 let data = res.body;
                 if (data.code === 0) {
                 	// vm.$store.commit('saveUserId',data.msg.userId)
                 	vm.$store.commit('savePersonId',data.msg._id)
-                	console.log(data);
+                	// console.log(data);
                     vm.$router.push({
-                        path: 'main',
+                        path: '/main',
                         query: {
                             id: data.msg
                         }

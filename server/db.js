@@ -29,6 +29,7 @@ const accountSchema = new mongoose.Schema({
 	typeIcon: String,
 	typeName: String,
 	orderId: Number,
+	typeColor: String,
 	// userId: Number,
 	typeId: Number,
 	personId:  mongoose.Schema.Types.ObjectId

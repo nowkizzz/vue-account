@@ -35,3 +35,36 @@ ul {
 input:focus {
     outline: none;
 }
+
+.highcharts-tooltip {
+  z-index: 9998;
+
+
+}
+.highcharts-tooltip span {
+    background-color:white;
+    opacity:1;
+    z-index:9999!important;
+    width: 70px;
+}
+
+
+.slide-right-enter-active,.slide-right-leave-active {
+    transition: all 0.3s ease;
+} 
+.slide-left-enter-active,.slide-left-leave-active {
+    transition: all .3s ease;
+}
+
+.slide-right-enter, .slide-right-leave-to
+/* .slide-fade-leave-active for <2.1.8 */ {
+  transform: translateX(375px);
+  // opacity: 0;
+}
+
+.slide-left-enter, .slide-left-leave-to
+/* .slide-fade-leave-active for <2.1.8 */ {
+  transform: translateX(-375px);
+  // opacity: 0;
+}
+

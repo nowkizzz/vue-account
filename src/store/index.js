@@ -11,6 +11,7 @@ const state = {
 	},
 	typeIcon: "icon-xingxing",
 	typeName: "一般",
+	typeColor: "#058DC7",
 	pay: 0,
 	income: 0,
 	isIncome: false,
@@ -43,6 +44,7 @@ const  mutations = {
 	typeSelected (state,obj) {
 		state.typeName = obj.name;
 		state.typeIcon = obj.icon;
+		state.typeColor = obj.color;
 	}
 }
 

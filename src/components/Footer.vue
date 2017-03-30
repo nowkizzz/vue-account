@@ -1,14 +1,14 @@
 <template>
 	<div class="footer">
 		<router-link to="/main" exact >
-			<div class="item" @click="firstCli"><img :src="firstIcon"><span>记账</span></div>
+			<div class="item" @click="firstCli"><img :src="firstIcon"><span :class="{ toactive : isActive }">记账</span></div>
 		</router-link>
 		<router-link to="/main/detail">
 		<div class="item" @click="secCli"><img :src="secIcon"><span>账单</span></div>
 		</router-link>
 		<router-link to="/main/aboutMe">
 
-		<div class="item" @click="thirdCli"><img :src="thirdIcon"><span>我的</span></div>
+		<div class="item" @click="thirdCli"><img :src="thirdIcon"><span>预算</span></div>
 		</router-link>
 
 	</div>
@@ -22,12 +22,13 @@ import imgThird from '../assets/Tab_Icon_Mine_def@2x.png'
 import imgThirdActive from '../assets/Tab_Icon_Mine_pre@2x.png'
 
 	export default {
-		name: "foo",
+		// name: "foo",
 		data () {
 			return {
 				firstIcon: imgFirstActive,
 				secIcon: imgSec,
-				thirdIcon: imgThird
+				thirdIcon: imgThird,
+				isActive: true
 			}
 		},
 		methods: {
@@ -46,6 +47,19 @@ import imgThirdActive from '../assets/Tab_Icon_Mine_pre@2x.png'
 				this.secIcon = imgSec;
 				this.thirdIcon = imgThirdActive;
 			},
+		},
+		watch: {
+			firstIcon (val) {
+				if(val == imgFirst) {
+					this.isActive = false;
+				}
+			},
+			'$route' (to,from) {
+				if(from.path == '/main/aboutMe' && to.path == '/main') {
+					this.firstCli();
+				}
+			}
+
 		}
 	}
 </script>
@@ -80,6 +94,10 @@ import imgThirdActive from '../assets/Tab_Icon_Mine_pre@2x.png'
 				width: 25px;
 				text-align: center;
 			}
+		}
+		.toactive {
+			color: #20D0F0;
+
 		}
 		.router-link-active {
 			span {
