@@ -87,6 +87,14 @@ export default {
             flex: 1;
             line-height: 0.4rem;
             height: 0.4rem;
+            i {
+                // vertical-align: bottom;
+                // display: inline;
+                // display: inline-block;
+            }
+            span {
+                vertical-align: top;
+            }
             span:nth-child(2) {
                 font-size: 0.35rem;
             }

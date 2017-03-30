@@ -19,7 +19,9 @@
     </div>
 </template>
 <script>
-import { mapState } from 'vuex'
+import {
+    mapState
+} from 'vuex'
 export default {
     data() {
             return {
@@ -147,25 +149,25 @@ export default {
             }
         },
         computed: mapState([
-        	'isIncome'
+            'isIncome'
         ]),
         methods: {
             takeIncome() {
-            	this.$store.commit('isIncomePay');
+                this.$store.commit('isIncomePay');
                 this.incomeType.forEach(function(item) {
                     item.isActive = false;
                 });
                 this.incomeType[0].isActive = true;
-                this.$store.commit('typeSelected',this.incomeType[0]);
+                this.$store.commit('typeSelected', this.incomeType[0]);
 
             },
             takePay() {
-            	this.$store.commit('isIncomePay');
+                this.$store.commit('isIncomePay');
                 this.payType.forEach(function(item) {
                     item.isActive = false;
                 });
                 this.payType[0].isActive = true;
-                this.$store.commit('typeSelected',this.payType[0]);
+                this.$store.commit('typeSelected', this.payType[0]);
             },
             iconActive(obj) {
                 if (this.isIncome) {
@@ -178,7 +180,7 @@ export default {
                     });
                 }
                 obj.isActive = true;
-                this.$store.commit('typeSelected',obj);
+                this.$store.commit('typeSelected', obj);
             },
         }
 
@@ -195,7 +197,7 @@ export default {
         margin: 0 auto;
         border: 1px solid #ccc;
         font-size: .5rem;
-        border-radius: 10%;
+        border-radius: 5px;
         .gridCell {
             flex: 1;
             text-align: center;
@@ -209,7 +211,7 @@ export default {
             }
         }
         .active {
-            background-color: #20D0F0;
+            background-color: #1AAD19;
             color: #fff;
         }
     }
@@ -222,27 +224,32 @@ export default {
         justify-content: flex-start;
         align-items: flex-start;
         margin-bottom: 1rem;
+        padding-bottom: 0.3rem;
         .item {
             display: flex;
             flex-direction: column;
-            height: 1.6rem;
+            // height: 1.6rem;
             width: 1.3rem;
             justify-content: center;
             text-align: center;
             margin: 0.3rem 0 0 0.6rem;
             .icon {
-                font-size: 1rem;
+                font-size: 0.9rem;
                 height: 1.3rem;
                 background-color: #eeebeb;
                 border-radius: 50%;
                 margin-bottom: 0.1rem;
+                &:before {
+                    top: 13%;
+                    position: relative;
+                }
             }
             .activeIcon {
-                background-color: #20D0F0;
+                background-color: #1AAD19;
                 color: #fff;
             }
             .activecontent {
-                color: #20D0F0;
+                color: #1AAD19;
             }
         }
     }

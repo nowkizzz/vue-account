@@ -100,7 +100,7 @@ export default {
 	    padding-left: 14px;
 	    padding-right: 14px;
 	    box-sizing: border-box;
-	    font-size: 0.35rem;
+	    font-size: 0.45rem;
 	    text-align: center;
 	    text-decoration: none;
 	    color: #FFFFFF;

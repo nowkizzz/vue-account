@@ -2,12 +2,14 @@
     <div>
         <div class="lan">
             <input type="date" class="dateShow" @change="dateSelect" :value="dateNow">
-            <input type="tel" v-model="money" class="moneyRecord" placeholder="0.00">
+            <input type="text" ref="input" :value="money" @input="updateValue($event.target.value)" class="moneyRecord" placeholder="0.00">
+            <!-- <input-val v-model="money" ></input-val> -->
         </div>
         <a class="saveBtn" @click="saveAccount">保存</a>
     </div>
 </template>
 <script>
+// import currencyValidator from '../utils/currencyValidator.js'
 export default {
     data() {
             return {
@@ -49,8 +51,39 @@ export default {
                         alert(data.msg);
                     }
                 })
+            },
+            updateValue(value) {
+                var regStrs = [
+                    ['^0(\\d+)$', '$1'], //禁止录入整数部分两位以上，但首位为0
+                    ['[^\\d\\.]+$', ''], //禁止录入任何非数字和点
+                    ['\\.(\\d?)\\.+', '.$1'], //禁止录入两个以上的点
+                    ['^(\\d+\\.\\d{2}).+', '$1'] //禁止录入小数点后两位以上
+                ];
+                for (var i = 0; i < regStrs.length; i++) {
+                    var reg = new RegExp(regStrs[i][0]);
+                    value = value.replace(reg, regStrs[i][1]);
+                }
+                this.money = this.$refs.input.value = value;
+                // this.money = value
+                //     // 删除两侧的空格符
+                //     .trim()
+                //     // 保留 2 小数位
+                //     .slice(0, value.indexOf('.') + 3);
+                // if (this.money !== value) {
+                //     this.$refs.input.value = this.money
+                // }
+                // this.$refs.input.value = value.replace(/[^\d{1,}\.\d{1,}|\d{1,}]/g,'');
+
+                // let result = currencyValidator.parse(value, this.money);
+                // if (result.warning) {
+                //     this.$refs.input.value = result.value;
+                // }
+                // this.money = Number(this.$refs.input.value);
             }
-        }
+        },
+        // components: {
+        //     inputVal
+        // }
 }
 </script>
 <style lang="scss" scoped>
@@ -111,7 +144,7 @@ export default {
     border-radius: 5px;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     overflow: hidden;
-    background-color: #20D0F0;
+    background-color: #1AAD19;
     border: none;
     width: 80%;
 }

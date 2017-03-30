@@ -45,6 +45,11 @@ const  mutations = {
 		state.typeName = obj.name;
 		state.typeIcon = obj.icon;
 		state.typeColor = obj.color;
+	},
+	initPayType (state) {
+		state.typeIcon = "icon-xingxing";
+		state.typeName = "一般";
+		state.typeColor = "#058DC7";
 	}
 }
 
