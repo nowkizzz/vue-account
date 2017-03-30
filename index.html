@@ -8,13 +8,15 @@
     <meta content="black" name="apple-mobile-web-app-status-bar-style">
     <meta content="telephone=no" name="format-detection">
     <meta content="email=no" name="format-detection">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
     <title>记账本</title>
 </head>
 
 <body>
     <div id="app">
         <loading v-show="showloading"></loading>
-    
+
         <router-view></router-view>
     </div>
     <!-- built files will be auto injected -->
