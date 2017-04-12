@@ -19,18 +19,26 @@ router.post('/api/login/createAccount', (req, res) => {
         if (!item) {
             item = { userId: 1 }
         }
-        // 新建数据
-        let newAccount = new PersonModel({
-            userName: req.body.userName,
-            password: req.body.password,
-            userId: item.userId
-        }).save((err, data) => { // 保存数据newAccount数据进mongoDB
-            if (err) {
-                res.send({ code: -1, msg: err.message });
+        //通过模型查找数据库
+        models.Login.findOne({ userName: req.body.userName }).exec((err, data) => {
+            if (!data) {
+                // 新建数据
+                let newAccount = new PersonModel({
+                    userName: req.body.userName,
+                    password: req.body.password,
+                    userId: item.userId
+                }).save((err, data) => { // 保存数据newAccount数据进mongoDB
+                    if (err) {
+                        res.send({ code: -1, msg: err.message });
+                    } else {
+                        res.send({ code: 0, msg: { userId: data.userId, name: data.userName, _id: data._id } });
+                    }
+                });
             } else {
-                res.send({ code: 0, msg: data.userId });
+                res.send({code: -1, msg: '账号已存在'})
             }
-        });
+        })
+
     })
 
 });
@@ -195,11 +203,11 @@ router.get('/api/account/accountMonth/:personId/:month/:year', (req, res) => {
                 typeColor: 1
             }
         }, {
-            $sort: { 
-                     incomeMonthSum: -1 ,
-                     payMonthSum: -1, 
+            $sort: {
+                incomeMonthSum: -1,
+                payMonthSum: -1,
 
-                 }
+            }
         }
 
 
@@ -249,13 +257,21 @@ router.get('/api/account/accountCurrentMonth/:personId', (req, res) => {
             return;
         }
         var dataMonth = result[0];
-        // 获取预算
+            // 获取预算
         PersonModel.findOne({ _id: personId }).select('budgetCount').exec((err, data) => {
             if (err) {
                 res.send(err);
                 return;
             }
-            dataMonth.budgetCount = data.budgetCount - dataMonth.payMonthSum;
+            if (!dataMonth) {
+                dataMonth = {
+                    budgetCount: data.budgetCount,
+                    payMonthSum: 0,
+                    incomeMonthSum: 0
+                }
+            } else {
+                dataMonth.budgetCount = data.budgetCount - dataMonth.payMonthSum;
+            }
             res.json({ code: 0, msg: dataMonth })
         })
     });
