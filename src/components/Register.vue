@@ -2,12 +2,13 @@
     <div class="login">
         <h2>记账本注册</h2>
         <div class="group">
-            <input type="text" class="accountInput" id="account" v-model="userName" placeholder="账号">
+            <input type="text" class="accountInput" v-model="userName"  placeholder="账号">
         </div>
         <div class="group">
-            <input type="password" class="passwordInput" id="password" v-model="password" placeholder="密码">
+            <input type="password" class="passwordInput" v-model="password"  placeholder="密码">
         </div>
         <a class="loginBtn" @click="conirm">确认</a>
+        <a class="loginBtn" @click="cancel">取消</a>
     </div>
 </template>
 <script>
@@ -42,6 +43,11 @@ export default {
                     	alert(data.msg);
                     }
                 })
+        }, 
+        cancel () {
+            this.$router.push({
+                path: '/'
+            })
         }
     },
 }
@@ -64,13 +70,31 @@ export default {
         font-size: 0.6rem;
         display: flex;
         input {
-            border: 1px solid #ccc;
+           border: 1px solid #ccc;
             border-radius: 2px;
             padding: 0.1rem;
-            padding-left: 0.2rem;
-            border-radius: 10px;
+            padding-left: 0.4rem;
+            border-radius: 0.5rem;
+            padding-left: 1.5rem;
             width: 100%;
+            height: 1rem;
+            margin: 0 0.3rem;
+            font-size: 0.53rem;
         }
+    }
+        .accountInput {
+        background-color: #fff;
+        background-image: url('../assets/account4.png');
+        background-position: 0.3rem 0.2rem;
+        background-size: 0.7rem;
+        background-repeat: no-repeat;
+    }
+    .passwordInput {
+        background-color: #fff;
+        background-image: url('../assets/mima4.png');
+        background-position: 0.3rem 0.2rem;
+        background-size: 0.7rem;
+        background-repeat: no-repeat;
     }
     .loginBtn {
         position: relative;

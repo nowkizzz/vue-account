@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 mongoose.Promise = require('bluebird');
 
 //连接数据库
-mongoose.connect('mongodb://120.25.99.69:27017/accountBook')
+mongoose.connect('mongodb://localhost:27017/accountBook')
 // 120.25.99.69:27017
 //为这次连接绑定事件
 const db = mongoose.connection;

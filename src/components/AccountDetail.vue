@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div  class="accountContainer">
         <div class="accountChart">
             <div class="accountTag">
                 <div class="item" :class="{active: isPay}" @click="toPay">支出</div>
@@ -287,7 +287,9 @@ export default {
 }
 </script>
 <style scoped lang="scss">
-
+.accountContainer {
+    height: 100%;
+}
 .accountChart {
     background-color: #fff;
     padding: 0.4rem 0 0rem 0;

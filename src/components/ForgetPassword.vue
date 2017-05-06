@@ -1,66 +1,68 @@
 <template>
     <div class="login">
-        <h2>记账本登录</h2>
+        <h2>重置密码</h2>
         <div class="group">
-            <input type="text" class="accountInput" :value="userName" @input="inUserName" placeholder="账号">
+            <input type="text" class="accountInput" v-model="userName" placeholder="请输入账号">
         </div>
         <div class="group">
-            <input type="password" class="passwordInput" :value="password" @input="inPassword" placeholder="密码">
+            <input type="password" class="passwordInput" v-model="newPassword" placeholder="请输入新密码">
         </div>
-        <router-link :to="'forget'"  class="forgetpwd">忘记密码?</router-link> 
-        <!-- <a  class="forgetpwd" @click="forgetpwd">忘记密码?</a> -->
-        <a class="loginBtn" @click="loginConirm">登录</a>
-        <a class="loginBtn" @click="register">注册</a>
+        <div class="group">
+            <input type="password" class="passwordInput" v-model="surePassword" placeholder="请再次输入新密码">
+        </div>
+		<div class="warningMessage" >{{msg}}</div>
+        <a class="loginBtn" @click="resetPassword">确认</a>
+        <a class="loginBtn" @click="cancel">取消</a>
     </div>
 </template>
 <script>
 export default {
-    name: "login",
-    computed: {
-        userName() {
-            return this.$store.state.user.userName
-        },
-        password() {
-            return this.$store.state.user.password
-        }
-    },
+	data () {
+		return {
+			userName: "",
+			newPassword: "",
+			surePassword: "",
+			msg: ""
+		}
+	},
     methods: {
-        inPassword() {
-            this.$store.commit('inPassword', event.target.value);
-        },
-        inUserName() {
-            this.$store.commit('inUserName', event.target.value);
-        },
-        loginConirm() {
+
+        resetPassword () {
             const vm = this;
-            this.$http.post('/api/login/login', {
-                userName: this.userName,
-                password: this.password
-            }).then((res) => {
-                let data = res.body;
-                if (data.code === 0) {
-                    // vm.$store.commit('saveUserId',data.msg.userId)
-                    vm.$store.commit('savePersonId', data.msg._id)
-                        // console.log(data);
-                    vm.$router.push({
-                        path: '/main',
-                        query: {
-                            id: data.msg
-                        }
-                    });　
-                } else {
-                    alert(data.msg)
-                }
-            })
+            if(!this.userName || !this.newPassword || !this.surePassword) {
+            	this.msg = "输入信息不全！";
+            	setTimeout(function() {
+            		vm.msg = ""
+            	},1000);
+            } else if( this.newPassword !== this.surePassword) {
+            	this.msg = "输入密码不相等！";
+            	setTimeout(function() {
+            		vm.msg = ""
+            	},1000);
+            } 
+            // this.$http.post('/api/login/login', {
+            //     userName: this.userName,
+            //     password: this.password
+            // }).then((res) => {
+            //     let data = res.body;
+            //     if (data.code === 0) {
+            //         // vm.$store.commit('saveUserId',data.msg.userId)
+            //         vm.$store.commit('savePersonId', data.msg._id)
+            //             // console.log(data);
+            //         vm.$router.push({
+            //             path: '/main',
+            //             query: {
+            //                 id: data.msg
+            //             }
+            //         });　
+            //     } else {
+            //         alert(data.msg)
+            //     }
+            // })
         },
-        register() {
+        cancel() {
             this.$router.push({
-                path: 'register'
-            })
-        },
-        forgetpwd() {
-            this.$router.push({
-                path: 'forget'
+                path: '/'
             })
         }
     }
@@ -99,7 +101,7 @@ export default {
         margin: 0.5rem;
         font-size: 0.6rem;
         display: flex;
-        margin-bottom: 1rem;
+        margin-bottom: 0.2rem;
         input {
             border: 1px solid #ccc;
             border-radius: 2px;
@@ -113,13 +115,13 @@ export default {
             font-size: 0.53rem;
         }
     }
-    .forgetpwd {
-        margin-top: -0.7rem;
-        display: block;
-        margin-left: 7rem;
-        font-size: 0.42rem;
-        color: #999;
-    }
+	.warningMessage {
+		color: red;
+		text-align: center;
+		font-size: 0.5rem;
+		height: 0.1rem;
+		width: 100%;
+	}
     .loginBtn {
         position: relative;
         display: block;
@@ -140,6 +142,9 @@ export default {
         border: none;
         width: 80%;
         margin-top: 1rem;
+        &:first-of-type {
+        	margin-top: 2rem;
+        }
     }
 }
 </style>

@@ -8,6 +8,7 @@ import AccountDetail from '@/components/AccountDetail'
 import About from '@/components/Aboutme'
 import Register from '@/components/Register'
 import BudgeSet from '@/components/BudgeSet'
+import ForgetPassword from '@/components/ForgetPassword'
 
 Vue.use(Router)
 
@@ -21,6 +22,10 @@ export default new Router({
       {
       path: '/register',
       component: Register,
+      },
+      {
+        path: '/forget',
+        component: ForgetPassword
       },
       {
       path: '/main/:id',
